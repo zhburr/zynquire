@@ -1,11 +1,338 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Base from "../layouts/Base.astro";
+import { Image } from "astro:assets";
+import Counter from "../components/Counter.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<Base title="Quality — Lead Generation & Appointment Setting">
+  <section class="relative scroll-mt-24">
+    <div
+      class="mx-auto max-w-6xl px-4 pt-24 md:pt-28 pb-12 grid md:grid-cols-2 gap-10 items-center"
+    >
+      <div>
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+          Welcome to <span class="text-neutral-700">Quality</span> – Your Partner
+          in Lead Generation & Appointment Setting
+        </h1>
+        <p class="mt-4 text-lg text-neutral-600 max-w-prose">
+          💼 Specialists in <strong>Solar & Roofing</strong> industry growth. We
+          help you scale faster with qualified leads and booked appointments. With
+          5+ years of experience, we’ve served <strong>1,200+ clients</strong> and
+          delivered <strong>6,000+</strong> appointments across the U.S.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href="#contact"
+            class="inline-flex items-center rounded-xl bg-neutral-900 text-white px-5 py-3 font-medium hover:opacity-90"
+            >Get Started</a
+          >
+          <a
+            href="#services"
+            class="inline-flex items-center rounded-xl border px-5 py-3 font-medium hover:bg-neutral-50"
+            >See Services</a
+          >
+        </div>
+      </div>
+      <div class="relative">
+        <Image
+          src="/images/hero-solar.jpg"
+          width="1600"
+          height="1000"
+          loading="eager"
+          decoding="async"
+          alt="Solar panels installation with team"
+          class="rounded-2xl shadow-lg w-full h-auto"
+        />
+      </div>
+    </div>
+
+    <!-- <div class="bg-neutral-50 border-t border-b">
+      <div class="mx-auto max-w-6xl px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div><div class="text-2xl font-semibold">5+ yrs</div><div class="text-sm text-neutral-600">Proven experience</div></div>
+        <div><div class="text-2xl font-semibold">1,200+</div><div class="text-sm text-neutral-600">Happy clients</div></div>
+        <div><div class="text-2xl font-semibold">6,000+</div><div class="text-sm text-neutral-600">Appointments delivered</div></div>
+        <div><div class="text-2xl font-semibold">35+ states</div><div class="text-sm text-neutral-600">Nationwide results</div></div>
+      </div>
+    </div> -->
+    <div class="bg-neutral-50 border-t border-b">
+  <div class="mx-auto max-w-6xl px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+    <div>
+      <div class="text-2xl font-semibold"><Counter to={5} suffix="+" /> yrs</div>
+      <div class="text-sm text-neutral-600">Proven experience</div>
+    </div>
+    <div>
+      <div class="text-2xl font-semibold"><Counter to={1200} suffix="+" /></div>
+      <div class="text-sm text-neutral-600">Happy clients</div>
+    </div>
+    <div>
+      <div class="text-2xl font-semibold"><Counter to={6000} suffix="+" /></div>
+      <div class="text-sm text-neutral-600">Appointments delivered</div>
+    </div>
+    <div>
+      <div class="text-2xl font-semibold"><Counter to={35} suffix="+" /></div>
+      <div class="text-sm text-neutral-600">Nationwide results</div>
+    </div>
+  </div>
+</div>
+  </section>
+
+  <section id="services" class="scroll-mt-24 py-16 md:py-24 bg-neutral-50">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-3xl md:text-4xl font-semibold">What We Do</h2>
+      <p class="mt-3 text-neutral-600 max-w-2xl">
+        High-intent, conversion-focused solutions for solar & roofing companies.
+      </p>
+
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="rounded-2xl border bg-white p-6">
+          <Image
+            src="/images/service-appointments.jpg"
+            width="800"
+            height="520"
+            alt="Booked appointments"
+            class="rounded-xl mb-4 w-full h-auto"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="text-xl font-semibold">Appointment Setting</h3>
+          <p class="mt-2 text-neutral-600">
+            We don’t just deliver names—we <strong
+              >book real appointments</strong
+            > with interested, qualified prospects who are ready to talk.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border bg-white p-6">
+          <Image
+            src="/images/service-leads.jpg"
+            width="800"
+            height="520"
+            alt="Lead generation dashboard"
+            class="rounded-xl mb-4 w-full h-auto"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="text-xl font-semibold">Lead Generation</h3>
+          <p class="mt-2 text-neutral-600">
+            Using our <strong>custom-built software</strong>, we generate
+            exclusive, high-converting leads for solar and roofing companies.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border bg-white p-6">
+          <Image
+            src="/images/service-smm.jpg"
+            width="800"
+            height="520"
+            alt="Social media marketing"
+            class="rounded-xl mb-4 w-full h-auto"
+            loading="lazy"
+            decoding="async"
+          />
+          <h3 class="text-xl font-semibold">Social Media Marketing</h3>
+          <p class="mt-2 text-neutral-600">
+            Get noticed with targeted campaigns that put your business in front
+            of the <strong>right people at the right time</strong>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-semibold">How It Works</h2>
+          <ol class="mt-6 space-y-4">
+            <li class="flex gap-3">
+              <div
+                class="h-8 w-8 shrink-0 rounded-full bg-neutral-900 text-white flex items-center justify-center font-semibold"
+              >
+                1
+              </div>
+              <p class="text-neutral-700">
+                <strong>We generate our own data</strong> using proprietary software.
+              </p>
+            </li>
+            <li class="flex gap-3">
+              <div
+                class="h-8 w-8 shrink-0 rounded-full bg-neutral-900 text-white flex items-center justify-center font-semibold"
+              >
+                2
+              </div>
+              <p class="text-neutral-700">
+                We run <strong>focused marketing campaigns</strong>.
+              </p>
+            </li>
+            <li class="flex gap-3">
+              <div
+                class="h-8 w-8 shrink-0 rounded-full bg-neutral-900 text-white flex items-center justify-center font-semibold"
+              >
+                3
+              </div>
+              <p class="text-neutral-700">
+                We <strong>pre-qualify every lead</strong> via direct calls to match
+                your criteria.
+              </p>
+            </li>
+            <li class="flex gap-3">
+              <div
+                class="h-8 w-8 shrink-0 rounded-full bg-neutral-900 text-white flex items-center justify-center font-semibold"
+              >
+                4
+              </div>
+              <p class="text-neutral-700">
+                You receive <strong>appointments or leads</strong> that convert.
+              </p>
+            </li>
+          </ol>
+          <div class="mt-6">
+            <a
+              href="#contact"
+              class="inline-flex items-center rounded-xl bg-neutral-900 text-white px-5 py-3 font-medium hover:opacity-90"
+              >Book a Call</a
+            >
+          </div>
+        </div>
+        <div>
+          <Image
+            src="/images/how-campaign.jpg"
+            width="1200"
+            height="900"
+            alt="Campaigns and calling workflow"
+            class="rounded-2xl border w-full h-auto"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why" class="scroll-mt-24 py-16 md:py-24 bg-neutral-50">
+    <div class="mx-auto max-w-6xl px-4">
+      <h2 class="text-3xl md:text-4xl font-semibold">Why Choose Us?</h2>
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          [
+            "Over 5 years of proven experience",
+            "1,200+ happy clients",
+            "6,000+ appointments delivered",
+            "Worked in 35+ states with excellent results",
+            "Dedicated 24/7 account manager for support",
+            "40% OFF for new clients – test our quality today!",
+          ].map((item) => (
+            <div class="rounded-2xl border bg-white p-6 flex gap-3">
+              <span class="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-neutral-900 text-white text-xs">
+                ✓
+              </span>
+              <p class="text-neutral-700">{item}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="support" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4 grid lg:grid-cols-2 gap-10 items-center">
+      <div>
+        <Image
+          src="/images/support.jpg"
+          width="1200"
+          height="900"
+          alt="24/7 account manager support"
+          class="rounded-2xl border w-full h-auto"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div>
+        <h2 class="text-3xl md:text-4xl font-semibold">Real-Time Support</h2>
+        <p class="mt-4 text-neutral-700">
+          Every client gets a dedicated <strong>24/7 account manager</strong> to
+          assist you, answer questions, and ensure smooth delivery.
+        </p>
+        <div class="mt-6">
+          <a
+            href="#contact"
+            class="inline-flex items-center rounded-xl border px-5 py-3 font-medium hover:bg-neutral-50"
+            >Talk to us now</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="offer"
+    class="scroll-mt-24 py-12 md:py-16 bg-neutral-900 text-white"
+  >
+    <div
+      class="mx-auto max-w-6xl px-4 flex flex-col md:flex-row items-center justify-between gap-4"
+    >
+      <div>
+        <h3 class="text-2xl md:text-3xl font-semibold">
+          🔥 Special Offer: 40% OFF for New Clients
+        </h3>
+        <p class="text-neutral-200 mt-1">
+          Try our services now and experience the Quality difference—at an
+          unbeatable introductory price!
+        </p>
+      </div>
+      <a
+        href="#contact"
+        class="inline-flex items-center rounded-xl bg-white text-neutral-900 px-5 py-3 font-medium hover:opacity-90"
+        >Claim Offer</a
+      >
+    </div>
+  </section>
+
+  <section id="contact" class="scroll-mt-24 py-16 md:py-24 bg-neutral-50">
+    <div class="mx-auto max-w-2xl px-4">
+      <h2 class="text-3xl md:text-4xl font-semibold">📞 Contact Us Today</h2>
+      <p class="mt-2 text-neutral-600">
+        Let’s start generating qualified leads and booked appointments—fast.
+      </p>
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        class="mt-8 grid gap-4"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <input
+          name="name"
+          type="text"
+          placeholder="Your name"
+          required
+          class="rounded-xl border px-4 py-3"
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+          class="rounded-xl border px-4 py-3"
+        />
+        <input
+          name="company"
+          type="text"
+          placeholder="Company"
+          class="rounded-xl border px-4 py-3"
+        />
+        <textarea
+          name="message"
+          rows="5"
+          placeholder="Tell us about your project (solar/roofing, state, goals…)"
+          class="rounded-xl border px-4 py-3"></textarea>
+        <button
+          type="submit"
+          class="rounded-xl bg-neutral-900 text-white px-5 py-3 font-medium hover:opacity-90"
+          >Send</button
+        >
+      </form>
+    </div>
+  </section>
+</Base>

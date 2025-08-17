@@ -1,0 +1,56 @@
+---
+const links = [
+  { href: "#services", label: "Services" },
+  { href: "#how",      label: "How It Works" },
+  { href: "#why",      label: "Why Us" },
+  { href: "#support",  label: "Support" },
+  { href: "#contact",  label: "Contact" },
+];
+---
+<header class="fixed top-0 inset-x-0 z-50 border-b bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+  <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+  
+    <a href="/" class="flex items-center gap-2">
+      <img src="/images/logo.svg" width="28" height="28" alt="Quality" class="h-7 w-7 rounded-md" />
+      <span class="font-semibold">Zynquire Media</span>
+    </a>
+
+ 
+    <nav class="hidden md:flex items-center gap-6 text-sm">
+      {links.map((l) => <a href={l.href} class="hover:opacity-80">{l.label}</a>)}
+      <a href="#contact" class="inline-flex items-center rounded-xl border px-3 py-2 font-medium hover:bg-neutral-50">
+        Book a Call
+      </a>
+    </nav>
+
+    <details class="md:hidden relative">
+      <summary
+        class="list-none inline-flex items-center rounded-xl border px-3 py-2 text-sm font-medium hover:bg-neutral-50 cursor-pointer select-none"
+        aria-label="Open menu"
+      >
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+        <span class="sr-only">Menu</span>
+      </summary>
+
+      <div class="fixed inset-0 bg-black/30"></div>
+
+      <nav
+        class="absolute right-0 mt-2 w-[calc(100vw-2rem)] max-w-xs rounded-2xl border bg-white/95 shadow-md p-4 flex flex-col gap-3 text-sm"
+      >
+        {links.map((l) => <a href={l.href} class="py-1 hover:opacity-80">{l.label}</a>)}
+        <a href="#contact" class="mt-1 inline-flex items-center rounded-xl border px-3 py-2 font-medium hover:bg-neutral-50">
+          Book a Call
+        </a>
+      </nav>
+    </details>
+  </div>
+
+  <script is:inline>
+    const details = document.querySelector('header details');
+    details?.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', () => setTimeout(() => { details.open = false; }, 120));
+    });
+  </script>
+</header>

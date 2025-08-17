@@ -1,0 +1,250 @@
+<!-- ---
+/**
+ * Props
+ * - to: number (required)      Final value to count to
+ * - start: number = 0          Initial value
+ * - duration: number = 1200    Animation time in ms
+ * - decimals: number = 0       Decimal digits
+ * - prefix: string = ""        Text before the number (e.g. "$")
+ * - suffix: string = ""        Text after the number (e.g. "+")
+ * - locale: string = "en-US"   Number formatting locale
+ */
+const {
+  to,
+  start = 0,
+  duration = 1200,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+  locale = "en-US",
+} = Astro.props;
+
+const fmt = new Intl.NumberFormat(locale, { maximumFractionDigits: decimals });
+---
+
+<span
+  data-counter
+  data-to={to}
+  data-start={start}
+  data-duration={duration}
+  data-decimals={decimals}
+  data-prefix={prefix}
+  data-suffix={suffix}
+  data-locale={locale}
+  class="inline-block tabular-nums"
+  aria-label={`${prefix}${fmt.format(Number(to))}${suffix}`}
+>
+  {prefix}{fmt.format(Number(start))}{suffix}
+</span>
+
+<script is:inline>
+  (function () {
+    // Run once globally
+    if (window.__COUNTER_INIT__) return;
+    window.__COUNTER_INIT__ = true;
+
+    const setup = (el) => {
+      if (!el || el.dataset.counterBound) return;
+      el.dataset.counterBound = "1";
+
+      const to = Number(el.dataset.to);
+      const start = Number(el.dataset.start || 0);
+      const duration = Number(el.dataset.duration || 1200);
+      const decimals = Number(el.dataset.decimals || 0);
+      const prefix = el.dataset.prefix || "";
+      const suffix = el.dataset.suffix || "";
+      const locale = el.dataset.locale || "en-US";
+
+      const format = (n) =>
+        new Intl.NumberFormat(locale, { maximumFractionDigits: decimals })
+          .format(decimals ? Number(n.toFixed(decimals)) : Math.round(n));
+
+      const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
+
+      const run = () => {
+        const t0 = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - t0) / duration);
+          const value = start + (to - start) * ease(p);
+          el.textContent = `${prefix}${format(value)}${suffix}`;
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = `${prefix}${format(to)}${suffix}`; // snap
+        };
+        requestAnimationFrame(step);
+      };
+
+      // Only animate once it’s visible
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          if (entries.some(e => e.isIntersecting)) {
+            io.disconnect();
+            run();
+          }
+        }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
+        io.observe(el);
+      } else {
+        run();
+      }
+    };
+
+    // Initial scan (handles SSR/static content)
+    document.querySelectorAll('[data-counter]').forEach(setup);
+
+    // (Optional) observe for counters added later (other islands, etc.)
+    const mo = new MutationObserver((muts) => {
+      muts.forEach((m) => {
+        m.addedNodes.forEach((n) => {
+          if (n.nodeType !== 1) return;
+          if (n.matches?.('[data-counter]')) setup(n);
+          n.querySelectorAll?.('[data-counter]').forEach(setup);
+        });
+      });
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script> -->
+
+
+
+---
+/**
+ * Props
+ * - to: number (required)      Final value to count to
+ * - start: number = 0          Initial value
+ * - duration: number = 1200    Animation time in ms
+ * - decimals: number = 0       Decimal digits
+ * - prefix: string = ""        Text before the number
+ * - suffix: string = ""        Text after the number
+ * - locale: string = "en-US"   Number formatting locale
+ * - threshold: number = 0.5    How much of the element must be visible (0-1)
+ */
+const {
+  to,
+  start = 0,
+  duration = 1200,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+  locale = "en-US",
+  threshold = 0.5,
+} = Astro.props;
+
+const fmt = new Intl.NumberFormat(locale, { maximumFractionDigits: decimals });
+---
+
+<span
+  data-counter
+  data-to={to}
+  data-start={start}
+  data-duration={duration}
+  data-decimals={decimals}
+  data-prefix={prefix}
+  data-suffix={suffix}
+  data-locale={locale}
+  data-threshold={threshold}
+  class="inline-block tabular-nums"
+  aria-label={`${prefix}${fmt.format(Number(to))}${suffix}`}
+>
+  {prefix}{fmt.format(Number(start))}{suffix}
+</span>
+
+<script is:inline>
+  (function () {
+    // Initialize only once per page
+    if (window.__COUNTER_INIT__) return;
+    window.__COUNTER_INIT__ = true;
+
+    const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    const setup = (el) => {
+      if (!el || el.dataset.counterBound) return;
+      el.dataset.counterBound = '1';
+
+      const read = () => ({
+        to: Number(el.dataset.to),
+        start: Number(el.dataset.start || 0),
+        duration: Number(el.dataset.duration || 1200),
+        decimals: Number(el.dataset.decimals || 0),
+        prefix: el.dataset.prefix || '',
+        suffix: el.dataset.suffix || '',
+        locale: el.dataset.locale || 'en-US',
+        threshold: Number(el.dataset.threshold || 0.5),
+      });
+
+      const setText = (n) => {
+        const { decimals, prefix, suffix, locale } = read();
+        const formatted = new Intl.NumberFormat(locale, { maximumFractionDigits: decimals })
+          .format(decimals ? Number(n.toFixed(decimals)) : Math.round(n));
+        el.textContent = `${prefix}${formatted}${suffix}`;
+      };
+
+      const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
+
+      let animating = false;
+      let af = 0;
+
+      const animateTo = () => {
+        if (animating) return;
+        animating = true;
+
+        const { start, to, duration } = read();
+
+        if (prefersReduced || duration <= 0) {
+          setText(to);
+          animating = false;
+          return;
+        }
+
+        const t0 = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - t0) / duration);
+          const val = start + (to - start) * ease(p);
+          setText(val);
+          if (p < 1) af = requestAnimationFrame(step);
+          else {
+            setText(to); // snap
+            animating = false;
+          }
+        };
+        af = requestAnimationFrame(step);
+      };
+
+      const resetToStart = () => {
+        if (af) cancelAnimationFrame(af);
+        animating = false;
+        const { start } = read();
+        setText(start);
+      };
+
+      // Replay on every visibility change
+      if ('IntersectionObserver' in window) {
+        const { threshold } = read();
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) animateTo();
+            else resetToStart();
+          });
+        }, { threshold });
+        io.observe(el);
+      } else {
+        // Fallback: just animate once
+        animateTo();
+      }
+    };
+
+    // Initial scan
+    document.querySelectorAll('[data-counter]').forEach(setup);
+
+    // Handle counters added later
+    const mo = new MutationObserver((muts) => {
+      for (const m of muts) {
+        for (const n of m.addedNodes) {
+          if (n.nodeType !== 1) continue;
+          if (n.matches?.('[data-counter]')) setup(n);
+          n.querySelectorAll?.('[data-counter]').forEach(setup);
+        }
+      }
+    });
+    mo.observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
