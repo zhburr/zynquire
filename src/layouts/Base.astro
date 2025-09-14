@@ -14,9 +14,9 @@ const { title = "Zynquire Media", description = "" } = Astro.props;
     <meta name="description" content={description} />
     <link rel="icon" href="/images/logo.svg" />
   </head>
-  <body class="h-full text-neutral-900 antialiased">
+  <body class="min-h-screen flex flex-col text-neutral-900 antialiased">
     <Header />
-   <main class="pt-16 md:pt-20"><slot /></main>
+   <main class="pt-16 md:pt-20 flex-1"><slot /></main>
     <Footer />
   </body>
 </html>

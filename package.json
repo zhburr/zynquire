@@ -11,6 +11,11 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.13.2",
+    "nodemailer": "^7.0.6",
     "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "@astrojs/netlify": "^6.5.10",
+    "@types/nodemailer": "^7.0.1"
   }
 }
