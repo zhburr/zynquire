@@ -1,0 +1,59 @@
+---
+const STYLES = {
+  success: 'border-green-200 bg-green-50 text-green-700',
+  error:   'border-red-200 bg-red-50 text-red-700',
+  info:    'border-blue-200 bg-blue-50 text-blue-700',
+  warn:    'border-yellow-200 bg-yellow-50 text-yellow-800',
+} as const;
+
+type Variant = keyof typeof STYLES;
+
+interface Props {
+  id?: string;
+  variant?: Variant;
+  message?: string;
+  dismissible?: boolean;
+  class?: string;
+}
+
+const {
+  id = 'banner',
+  variant = 'info',
+  message = '',
+  dismissible = true,
+  class: extra = '',
+} = Astro.props as Props;
+
+const BASE = 'rounded-xl border p-3 text-sm';
+const hidden = message ? '' : 'hidden';
+---
+
+<div
+  id={id}
+  data-banner
+  data-base={BASE}
+  data-success={STYLES.success}
+  data-error={STYLES.error}
+  data-info={STYLES.info}
+  data-warn={STYLES.warn}
+  role="alert"
+  aria-live="polite"
+  class={`${BASE} ${STYLES[variant]} ${hidden} ${extra}`}
+>
+  <div class="flex items-start gap-2">
+    <div data-banner-text class="leading-5">{message}</div>
+
+    {dismissible && (
+      <button
+        type="button"
+        class="ml-auto inline-flex h-6 w-6 items-center justify-center rounded-md/90 hover:bg-black/5"
+        aria-label="Dismiss"
+        onclick="this.closest('[data-banner]')?.classList.add('hidden')"
+      >
+        <svg viewBox="0 0 24 24" class="h-4 w-4" stroke="currentColor" fill="none" stroke-width="2">
+          <path stroke-linecap="round" d="M6 6l12 12M6 18L18 6" />
+        </svg>
+      </button>
+    )}
+  </div>
+</div>
