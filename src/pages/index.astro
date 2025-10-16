@@ -292,6 +292,90 @@ import Banner from "../components/Banner.astro";
     </div>
   </section>
 
+    <section id="reviews" class="scroll-mt-24 py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4">
+      <div class="flex items-start md:items-center justify-between gap-6 flex-col md:flex-row">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-semibold">What Our Clients Say</h2>
+          <p class="mt-2 text-neutral-600 max-w-2xl">
+            Hear from solar and roofing businesses who scaled faster with Quality.
+          </p>
+        </div>
+        <div class="rounded-2xl border px-5 py-4 bg-white">
+          <div class="flex items-center gap-2">
+            <div class="flex">
+              {Array.from({ length: 5 }).map(() => (
+                <svg viewBox="0 0 24 24" class="w-5 h-5 fill-yellow-500">
+                  <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              ))}
+            </div>
+            <span class="ml-1 font-semibold">4.9/5</span>
+          </div>
+          <p class="text-sm text-neutral-600 mt-1">Based on 180+ verified reviews</p>
+        </div>
+      </div>
+
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="rounded-2xl border bg-white p-6 space-y-4">
+          <div class="flex flex-col">
+            <p class="font-semibold text-lg">Alex Carter</p>
+            <p class="text-sm text-neutral-600">Owner • SunPeak Roofing</p>
+          </div>
+          <div class="flex">
+            {Array.from({ length: 5 }).map(() => (
+              <svg viewBox="0 0 24 24" class="w-5 h-5 fill-yellow-500">
+                <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            ))}
+          </div>
+          <blockquote class="text-neutral-700">
+            “Quality booked us <strong>38 appointments in 6 weeks</strong>. The leads actually showed up and converted. 
+            Best ROI we've seen this year.”
+          </blockquote>
+        </div>
+
+        <div class="rounded-2xl border bg-white p-6 space-y-4">
+          <div class="flex flex-col">
+            <p class="font-semibold text-lg">Maya Lopez</p>
+            <p class="text-sm text-neutral-600">VP Growth • BrightGrid Solar</p>
+          </div>
+          <div class="flex">
+            {Array.from({ length: 5 }).map(() => (
+              <svg viewBox="0 0 24 24" class="w-5 h-5 fill-yellow-500">
+                <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            ))}
+          </div>
+          <blockquote class="text-neutral-700">
+            “Their <strong>pre-qualification system</strong> saves our reps hours every week. Our pipeline is healthier and CAC is lower.”
+          </blockquote>
+        </div>
+
+        <div class="rounded-2xl border bg-white p-6 space-y-4">
+          <div class="flex flex-col">
+            <p class="font-semibold text-lg">Daniel Nguyen</p>
+            <p class="text-sm text-neutral-600">Sales Lead • TopTile Roofing</p>
+          </div>
+          <div class="flex">
+            {Array.from({ length: 4 }).map(() => (
+              <svg viewBox="0 0 24 24" class="w-5 h-5 fill-yellow-500">
+                <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+              </svg>
+            ))}
+            <svg viewBox="0 0 24 24" class="w-5 h-5 fill-yellow-500/50">
+              <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+            </svg>
+          </div>
+          <blockquote class="text-neutral-700">
+            “Our show-rate jumped to <strong>82%</strong>. We closed 9 new roofs last month from their appointments alone.”
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
   <section id="contact" class="scroll-mt-24 py-16 md:py-24 bg-neutral-50">
     <div class="mx-auto max-w-2xl px-4">
       <h2 class="text-3xl md:text-4xl font-semibold">📞 Contact Us Today</h2>
